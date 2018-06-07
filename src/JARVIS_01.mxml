@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<f:Application xmlns:f="library://ns.feathersui.com/mxml"
+               xmlns:fx="http://ns.adobe.com/mxml/2009"
+               theme="feathers.themes.MetalWorksMobileTheme">
+
+    <!-- GLOBAL LAYOUT FOR THE APPLICATION -->
+    <f:layout>
+        <f:AnchorLayout/>
+    </f:layout>
+
+    <!-- THIS IMAGE SHOW A BUNNY FOR THE BOT -->
+    <f:ImageLoader source="/assets/images/bunny.png">
+        <f:layoutData>
+            <f:AnchorLayoutData top="10"
+                                horizontalCenter="0"/>
+        </f:layoutData>
+    </f:ImageLoader>
+
+    <!-- THIS LABEL WILL BE USED TO SHOW BOT ANSWERS -->
+    <f:Label id="botLabel"
+             styleName="{Label.ALTERNATE_STYLE_NAME_HEADING}"
+             wordWrap="true">
+        <f:layoutData>
+            <f:AnchorLayoutData horizontalCenter="0"
+                                top="90"/>
+        </f:layoutData>
+    </f:Label>
+
+    <!-- THIS IMAGE SHOW A BUNNY FOR THE BOT -->
+    <f:ImageLoader source="/assets/images/me.png">
+        <f:layoutData>
+            <f:AnchorLayoutData bottom="10"
+                                horizontalCenter="0"/>
+        </f:layoutData>
+    </f:ImageLoader>
+
+    <!-- THIS LABEL WILL BE USED TO SHOW USER VOICE INPUTS -->
+    <f:Label id="userLabel"
+             styleName="{Label.ALTERNATE_STYLE_NAME_HEADING}"
+             wordWrap="true">
+        <f:layoutData>
+            <f:AnchorLayoutData horizontalCenter="0"
+                                bottom="90"/>
+        </f:layoutData>
+    </f:Label>
+
+    <!-- THIS LABEL WILL BE USED TO SHOW USER INSTRUCTIONS -->
+    <f:Label id="instructionsLabel"
+             text="TOUCH THE SCREEN TO TALK WITH THE BOT"
+             styleName="{Label.ALTERNATE_STYLE_NAME_DETAIL}"
+             wordWrap="true">
+        <f:layoutData>
+            <f:AnchorLayoutData horizontalCenter="0"
+                                verticalCenter="0"/>
+        </f:layoutData>
+    </f:Label>
+
+    <!-- THIS LAYOUTGROUP IS USED TO HANDLE TOUCH -->
+    <f:LayoutGroup id="touchLayoutGroup"
+                   backgroundSkin="{new Quad(1,1,0x000000)}"
+                   alpha="0.01"
+                   touchable="true">
+        <f:layoutData>
+            <f:AnchorLayoutData percentWidth="100"
+                                percentHeight="100"/>
+        </f:layoutData>
+    </f:LayoutGroup>
+
+    <fx:Script>
+        <![CDATA[
+        /**
+         * EZSTT IMPORTS
+         */
+        import com.fabricemontfort.air.ezSTT;
+        import com.fabricemontfort.air.ezSpeech;
+        import com.fabricemontfort.air.ezspeech.languages;
+        import com.fabricemontfort.air.ezstt.STTEvent;
+        import com.fabricemontfort.air.ezstt.languages;
+
+
+        /**
+         * FEATHERS / STARLING IMPORTS
+         */
+        import starling.display.Quad;
+        import starling.events.Touch;
+        import starling.events.TouchEvent;
+        import starling.events.TouchPhase;
+        import feathers.controls.Alert;
+        import feathers.data.ListCollection;
+        import feathers.core.PopUpManager;
+        import feathers.extensions.MaterialDesignSpinner;
+        import starling.animation.Juggler;
+
+        /**
+         * FLASH IMPORTS
+         */
+        import flash.events.Event;
+        import flash.events.HTTPStatusEvent;
+        import flash.events.SecurityErrorEvent;
+        import flash.events.IOErrorEvent;
+
+        /**
+         * IS EVERYTHING OK FOR THE DEMO ?
+         */
+        private var readyToDemonstrate:Boolean = false;
+
+        /**
+         * EZSTT & EZSPEECH LIBS AND CONSTANTS
+         */
+        private var stt:ezSTT;
+        private var tts:ezSpeech;
+        private const SPEED:Number = 0.51;
+        private const PITCH:Number = 0.65;
+
+        /**
+         * PROGRAM-O SERVER
+         */
+        private const DOMAIN:String = "192.168.1.6";
+        private const DIRECTORY:String = "program-o";
+
+        /**
+         * SPINNER
+         */
+        private var spinner:MaterialDesignSpinner;
+
+        /**
+         * OVERRIDE THE PROTECTED FUNCTION INITIALIZE
+         * WE INSTANCIATE ALL WE NEED HERE
+         */
+        override protected function initialize():void {
+            super.initialize();
+
+            spinner = new MaterialDesignSpinner();
+            spinner.color = 0xffffff;
+
+            // Check is ezSTT is supported on the mobile device
+            if (ezSTT.instance.isSupported()) {
+                // Initialize Speech To Text
+                stt = ezSTT.instance;
+                stt.debug = true;
+                stt.setLanguage(com.fabricemontfort.air.ezstt.languages.EN);
+
+                if (stt.isAuthorized()) {
+                    // Add STT listeners for final result, partial result, volume, end of speech
+                    stt.addEventListener(STTEvent.PARTIAL, onSTTResult);
+                    stt.addEventListener(STTEvent.FINAL, onSTTResult);
+                    stt.addEventListener(STTEvent.STOP, onSTTStop);
+                    // Everything is fine, lets start
+                    readyToDemonstrate = true;
+                    // STT is not autorized
+                } else {
+                    // Initialize STT listener for permissions
+                    stt.addEventListener(STTEvent.AUTH, onAuth);
+                    // Ask for permissions
+                    stt.askUserAuthorization();
+                }
+            }
+
+            if (ezSpeech.instance.isSupported()) {
+                // Initialize Text To Speech
+                tts = ezSpeech.instance;
+                tts.debug = true;
+                tts.setPitch(PITCH);
+                tts.setSpeed(SPEED);
+                tts.setLanguage(com.fabricemontfort.air.ezspeech.languages.US);
+            }
+
+            touchLayoutGroup.addEventListener(starling.events.TouchEvent.TOUCH, touchHandler);
+        }
+
+        /**
+         * TOUCH EVENT HANDLER
+         */
+        private function touchHandler(event:TouchEvent):void {
+            var touch:Touch = event.getTouch(touchLayoutGroup);
+            // User release the touch
+            if(touch.phase == TouchPhase.ENDED)
+            {
+                if (readyToDemonstrate) {
+                    // We are ready to play with STT
+                    // Show a spinner to prevent double touch
+                    PopUpManager.addPopUp(spinner, true, true);
+                    stt.start();
+                }
+            }
+        }
+
+        private function onAuth(event:STTEvent):void {
+            // Check if STT is authorized
+            if (stt.isAuthorized()) {
+                // Remove this listener
+                stt.removeEventListener(STTEvent.AUTH, onAuth);
+                // Add STT listeners for final result, partial result, volume, end of speech
+                stt.addEventListener(STTEvent.PARTIAL, onSTTResult);
+                stt.addEventListener(STTEvent.FINAL, onSTTResult);
+                stt.addEventListener(STTEvent.STOP, onSTTStop);
+                // Everything is fine, lets start
+                readyToDemonstrate = true;
+                // STT is not autorized
+            } else {
+                // Show an error message
+                trace ("STT is not authorized. Check security on your phone settings");
+            }
+        }
+
+        /**
+         * STT engine recognized words
+         */
+        private function onSTTResult(event:STTEvent):void {
+            // Set utterance with partial and final result
+            userLabel.text = String(event.message).toUpperCase();
+        }
+
+        /**
+         * User stopped speaking
+         */
+        private function onSTTStop(event:STTEvent):void {
+            sendtobot(userLabel.text.toUpperCase());
+        }
+
+        /**
+         * Prepare an http query and send it to the server
+         */
+        private function sendtobot(utterance:String):void {
+            // See DOMAIN and DIRECTORY constants to handle your configuration
+            var url:String = "http://" + DOMAIN + "/" + DIRECTORY + "/chatbot/conversation_start.php";
+
+            // Create a new URL Request
+            var request:URLRequest = new URLRequest(url);
+
+            // We have to send values to the bot to let it answer correctly
+            var requestVars:URLVariables = new URLVariables();
+            requestVars.convo_id = "3c84c0ca7f9ae17842a370a3fbc90b63"; // YOU WILL HAVE TO CREATE AN UNIQUE ID FOR EACH USER
+            requestVars.bot_id = 1; // CHECK YOUR BOT ID
+            requestVars.format = "json";
+            requestVars.say = utterance;
+
+            // Assign Variables and set method to URL Request
+            request.data = requestVars;
+            request.method = URLRequestMethod.POST;
+
+            // Create an URL Loader
+            var urlLoader:URLLoader = new URLLoader();
+            urlLoader.dataFormat = URLLoaderDataFormat.TEXT;
+            // Set up listeners
+            urlLoader.addEventListener(flash.events.Event.COMPLETE, loaderCompleteHandler, false, 0, true);
+            urlLoader.addEventListener(HTTPStatusEvent.HTTP_STATUS, httpStatusHandler, false, 0, true);
+            urlLoader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler, false, 0, true);
+            urlLoader.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler, false, 0, true);
+            try {
+                // Send request to server
+                urlLoader.load(request);
+            } catch (e:Error) {
+                // Or we trace the error
+                trace(e);
+            }
+        }
+
+        /**
+         * Bot is answering
+         */
+        private function loaderCompleteHandler(e:flash.events.Event):void {
+            // Trace the answer
+            trace("response: " + e.target.data);
+
+            var obj:Object = JSON.parse(e.target.data);
+
+            // Set the bot answer in the Label
+            botLabel.text = String(obj.botsay).toUpperCase();
+
+            // If TTS is supported
+            if (tts.isSupported()) {
+                // Say the answer by voice
+                tts.say(obj.botsay);
+            }
+
+            // Remove the spinner
+            if (PopUpManager.isPopUp(spinner)) PopUpManager.removePopUp(spinner);
+        }
+
+        private function httpStatusHandler(e:HTTPStatusEvent):void {
+            trace("httpStatusHandler:" + e);
+            // Remove the spinner
+            if (PopUpManager.isPopUp(spinner)) PopUpManager.removePopUp(spinner);
+        }
+
+        private function securityErrorHandler(e:SecurityErrorEvent):void {
+            trace("securityErrorHandler:" + e);
+            // Remove the spinner
+            if (PopUpManager.isPopUp(spinner)) PopUpManager.removePopUp(spinner);
+        }
+
+        private function ioErrorHandler(e:IOErrorEvent):void {
+            trace("IOError:" + e);
+            // Remove the spinner
+            if (PopUpManager.isPopUp(spinner)) PopUpManager.removePopUp(spinner);
+        }
+
+        ]]>
+    </fx:Script>
+
+</f:Application>

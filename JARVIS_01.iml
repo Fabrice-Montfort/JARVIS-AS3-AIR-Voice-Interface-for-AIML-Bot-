@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="Flex" version="4">
+  <component name="FlexBuildConfigurationManager" active="JARVIS_01">
+    <configurations>
+      <configuration name="JARVIS_01" target-platform="Mobile" main-class="JARVIS_01" output-file="JARVIS_01.swf" output-folder="$MODULE_DIR$/out/production/JARVIS_01">
+        <dependencies target-player="29.0">
+          <entries>
+            <entry library-id="f6540b97-8f61-4a88-9da3-f8e4a070ba1f">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-id="d7fd074c-3be3-442d-ae67-54b7e792abc5">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-id="8254a5c2-f369-4a5c-bf4c-eb186016360a">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-id="aebc4dc7-30c4-4d07-afdb-0a6f754e8adf">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-id="94765a57-fceb-4fa4-82fc-b33494b5d2b2">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-id="fc70eab0-e274-4110-8be4-9d2c8cf327f6">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-id="331a8a42-62fc-49da-b2a8-cce74c1f0013">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-id="65e6ee21-b8ce-4d24-b561-80c692a1d540">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-id="edd9476b-2915-4d0c-b5e0-b9e3616542e4">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-id="59300239-9913-4c43-97e0-4c0524f4e1ee">
+              <dependency linkage="Merged" />
+            </entry>
+          </entries>
+          <sdk name="Feathers_3.4.1_-_AIR_29" />
+        </dependencies>
+        <compiler-options>
+          <option name="additionalOptions" value="-preloader=" />
+        </compiler-options>
+        <packaging-air-desktop />
+        <packaging-android enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/JARVIS_01-app.xml" package-file-name="JARVIS_01">
+          <files-to-package>
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/assets" path-in-package="assets" />
+          </files-to-package>
+        </packaging-android>
+        <packaging-ios enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/JARVIS_01-app.xml" package-file-name="JARVIS_01">
+          <files-to-package>
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default-375w-667h@2x~iphone.png" path-in-package="Default-375w-667h@2x~iphone.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default-414w-736h@3x~iphone.png" path-in-package="Default-414w-736h@3x~iphone.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default-568h@2x~iphone.png" path-in-package="Default-568h@2x~iphone.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default-812h@3x~iphone.png" path-in-package="Default-812h@3x~iphone.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default-Landscape-414w-736h@3x~iphone.png" path-in-package="Default-Landscape-414w-736h@3x~iphone.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default-Landscape-812h@3x~iphone.png" path-in-package="Default-Landscape-812h@3x~iphone.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default-Landscape-1112h@2x.png" path-in-package="Default-Landscape-1112h@2x.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default-Landscape@2x.png" path-in-package="Default-Landscape@2x.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default-Landscape~ipad.png" path-in-package="Default-Landscape~ipad.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default-LandscapeLeft@2x~ipad.png" path-in-package="Default-LandscapeLeft@2x~ipad.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default-LandscapeRight@2x~ipad.png" path-in-package="Default-LandscapeRight@2x~ipad.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default-LandscapeRight~ipad.png" path-in-package="Default-LandscapeRight~ipad.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default-Portrait-1112h@2x.png" path-in-package="Default-Portrait-1112h@2x.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default-Portrait@2x.png" path-in-package="Default-Portrait@2x.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default-Portrait@2x~ipad.png" path-in-package="Default-Portrait@2x~ipad.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default-Portrait~ipad.png" path-in-package="Default-Portrait~ipad.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default-PortraitUpsideDown@2x~ipad.png" path-in-package="Default-PortraitUpsideDown@2x~ipad.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default-PortraitUpsideDown~ipad.png" path-in-package="Default-PortraitUpsideDown~ipad.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default@2x~iphone.png" path-in-package="Default@2x~iphone.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Default~iphone.png" path-in-package="Default~iphone.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/assets" path-in-package="assets" />
+          </files-to-package>
+          <AirSigningOptions keystore-path="$USER_HOME$/Desktop/Apple + Fabrice Montfort/Developpement-AllApps.p12" provisioning-profile-path="$USER_HOME$/Desktop/Apple + Fabrice Montfort/DevFMTAllApps.mobileprovision" />
+        </packaging-ios>
+      </configuration>
+    </configurations>
+    <compiler-options />
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="Feathers_3.4.1_-_AIR_29" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="f6540b97-8f61-4a88-9da3-f8e4a070ba1f" />
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Documents/SDK/Feathers_3.4.1_-_AIR_29/frameworks/libs/authoringsupport.swc!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="d7fd074c-3be3-442d-ae67-54b7e792abc5" />
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Documents/SDK/Feathers_3.4.1_-_AIR_29/frameworks/libs/core.swc!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="8254a5c2-f369-4a5c-bf4c-eb186016360a" />
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Documents/SDK/Feathers_3.4.1_-_AIR_29/frameworks/libs/feathers-mxml.swc!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="aebc4dc7-30c4-4d07-afdb-0a6f754e8adf" />
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Documents/SDK/Feathers_3.4.1_-_AIR_29/frameworks/libs/feathers.swc!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="94765a57-fceb-4fa4-82fc-b33494b5d2b2" />
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Documents/SDK/Feathers_3.4.1_-_AIR_29/frameworks/libs/framework.swc!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="fc70eab0-e274-4110-8be4-9d2c8cf327f6" />
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Documents/SDK/Feathers_3.4.1_-_AIR_29/frameworks/libs/starling.swc!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="331a8a42-62fc-49da-b2a8-cce74c1f0013" />
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Documents/SDK/Feathers_3.4.1_-_AIR_29/frameworks/themes/MetalWorksMobileTheme/MetalWorksMobileTheme.swc!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="65e6ee21-b8ce-4d24-b561-80c692a1d540" />
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Documents/ANEs/ezSTT/ezSTT.ane!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="edd9476b-2915-4d0c-b5e0-b9e3616542e4" />
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Documents/ANEs/ezSpeech/ezSpeech.ane!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="59300239-9913-4c43-97e0-4c0524f4e1ee" />
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/material-design-spinner.swc!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>
